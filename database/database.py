@@ -6,3 +6,9 @@ engine = create_engine('postgresql://guilherme:anjos2020@localhost:5432/API-test
 db_session = scoped_session(sessionmaker(bind = engine))
 db_base = declarative_base()
 db_base.query = db_session.query_property()
+
+def init_db():
+    db_base.metadata.create_all(bind=engine)
+
+if __name__ == "__main__":
+    init_db()
