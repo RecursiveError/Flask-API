@@ -1,12 +1,11 @@
-from database.database import db_base
-from sqlalchemy import Column, Date, Time, Integer
+from extension.database import db
 
-class Luminosidade (db_base):
+class Temperatura (db.Model):
     __tablename__ = "temperatura"
-    id   = Column(Integer, primary_key = True)
-    data = Column(Date)
-    hora = Column(Time)
-    temperatura  = Column(Integer)
+    id   = db.Column(db.Integer, primary_key = True)
+    data = db.Column(db.Date)
+    hora = db.Column(db.Time)
+    temperatura  = Column(db.Integer)
 
     def __init__(self, temperatura, data, hora):
         self.temperatura = temperatura

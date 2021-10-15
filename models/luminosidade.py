@@ -1,12 +1,11 @@
-from database.database import db_base
-from sqlalchemy import Column, Date, Time, Integer
+from extension.database import db
 
 class Luminosidade (db_base):
     __tablename__ = "luminosidade"
-    id   = Column(Integer, primary_key = True)
-    data = Column(Date)
-    hora = Column(Time)
-    lux  = Column(Integer)
+    id   = db.Column(db.Integer, primary_key = True)
+    data = db.Column(db.Date)
+    hora = db.Column(db.Time)
+    lux  = db.Column(db.Integer)
 
     def __init__(self, lux, data, hora):
         self.lux = lux
