@@ -1,31 +1,30 @@
 from flask import jsonify, request, abort
 from flask_restful import Resource
-from models.temperatura import Temperatura
+from models.luminosidade import Luminosidade
 from extension.database import db
 
 from datetime import datetime
 
 
-class Temp_resource_get_all(Resource):
+class Lux_resource_get_all(Resource):
     def get(self):
-        temperatura = Temperatura.query.order_by(Temperatura.data).all() or abort(404)
-        return jsonify({'temp' :[temp.to_dict() for temp in temperatura]})
+        luminosidade = Luminosidade.query.order_by(Luminosidade.data).all() or abort(404)
+        return jsonify({'lux' :[lux.to_dict() for lux in luminosidade]})
 
-class Temp_resource(Resource):
+class Lux_resource(Resource):
     def get(self, data):
         try: 
             datestr = str(datetime.strptime(data, '%Y-%d-%m'))
-            temperatura = Temperatura.query.filter_by(data=data).all() or abort(404)
+            luminosidade = Luminosidade.query.filter_by(data=data).all() or abort(404)
         except ValueError:
             abort(400, "data invalida")
-
-        return jsonify({'temp' :[temp.to_dict() for temp in temperatura]})
+        return jsonify({'lux' :[lux.to_dict() for lux in luminosidade]})
 
     def post(self, data=None):
         try:
             content = request.get_json() or abort(400)
-            temp = Temperatura(content['temp'], content['date'], content['hour'])
-            db.session.add(temp)
+            lux = luminosidade(content['lux'], content['date'], content['hour'])
+            db.session.add(lux)
             db.session.commit()
         except KeyError:
             abort(400, "Json invalido")
