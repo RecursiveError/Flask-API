@@ -6,5 +6,3 @@ def create_app():
     conf.init_app(app)
     conf.load_libs(app)
     return app
-
-
